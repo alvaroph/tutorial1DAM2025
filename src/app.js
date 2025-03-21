@@ -12,16 +12,34 @@ Motorcycle.belongsTo(Category, { foreignKey: 'categoryId' });
 const motorcycleRoutes = require('./routes/motorcycles.routes');
 const categoryRoutes = require('./routes/categories.routes');
 
+// Rutes EJS
+const motorcycleRoutesEJS = require('./routes/motorcyclesEJS.routes');
+const categoryRoutesEJS = require('./routes/categoriesEJS.routes');
+
+
+
 const app = express();
+app.use(express.urlencoded({ extended: true })); // per formularis
 app.use(express.json());
+
+
+//Sessió 8
+app.set('view engine', 'ejs');
+const path = require('path');
+app.set('views', path.join(__dirname, 'views'));
+//Fi de la sessió 8
 
 // Rutes JSON
 app.use('/api/motorcycles', motorcycleRoutes);
 app.use('/api/categories', categoryRoutes);
 
+// Rutes EJS
+app.use('/motorcycles', motorcycleRoutesEJS);
+app.use('/categories', categoryRoutesEJS);
+
 // Ruta de prova
 app.get('/', (req, res) => {
-  res.send('Benvingut al projecte Motorcicle!');
+  res.render('index');
 });
 
 const port = process.env.PORT || 3000;
