@@ -1,0 +1,11 @@
+<%- include('../partials/header', { title: 'Afegir moto' }) %>
+  <h1>Nova categoria</h1>
+  <form action="/categoriesS/create" method="POST">
+    <div class="mb-3">
+      <label for="name" class="form-label">Nom</label>
+      <input type="text" name="name" class="form-control" required />
+    </div>
+   
+    <button type="submit" class="btn btn-success">Crear</button>
+  </form>
+<%- include('../partials/footer') %>

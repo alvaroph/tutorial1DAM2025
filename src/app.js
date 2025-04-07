@@ -16,8 +16,6 @@ const categoryRoutes = require('./routes/categories.routes');
 const motorcycleRoutesEJS = require('./routes/motorcyclesEJS.routes');
 const categoryRoutesEJS = require('./routes/categoriesEJS.routes');
 
-
-
 const app = express();
 app.use(express.urlencoded({ extended: true })); // per formularis
 app.use(express.json());
@@ -36,6 +34,9 @@ app.use('/api/categories', categoryRoutes);
 // Rutes EJS
 app.use('/motorcycles', motorcycleRoutesEJS);
 app.use('/categories', categoryRoutesEJS);
+
+// Configurar carpeta estática para servir las imágenes
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
 // Ruta de prova
 app.get('/', (req, res) => {
@@ -58,6 +59,7 @@ const port = process.env.PORT || 3000;
     await Motorcycle.create({
       name: 'CBR 600 RR',
       brand: 'Honda',
+      country: 'japan',
       cc: 600,
       categoryId: catCarretera.id,
     });
@@ -65,6 +67,7 @@ const port = process.env.PORT || 3000;
     await Motorcycle.create({
       name: 'Africa Twin',
       brand: 'Honda',
+      country: 'japan',
       cc: 1000,
       categoryId: catEnduro.id,
     });

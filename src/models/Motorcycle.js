@@ -9,6 +9,10 @@ const Motorcycle = sequelize.define('Motorcycle', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  country: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
   brand: {
     type: DataTypes.STRING,
     allowNull: false,

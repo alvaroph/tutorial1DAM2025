@@ -17,7 +17,8 @@ router.get('/', async (req, res) => {
 // Form per crear una moto (GET)
 router.get('/new', async (req, res) => {
     try {
-        const categories = await Category.findAll(); res.render('motorcycles/new', { categories });
+        const categories = await Category.findAll(); 
+        res.render('motorcycles/new', { categories });
     }
     catch (error) {
         res.status(500).send('Error al carregar el formulari');
@@ -27,8 +28,8 @@ router.get('/new', async (req, res) => {
 // Crear moto (POST)
 router.post('/create', async (req, res) => {
     try {
-        const { name, brand, cc, categoryId } = req.body;
-        await Motorcycle.create({ name, brand, cc, categoryId });
+        const { name, brand, cc,country,  categoryId } = req.body;
+        await Motorcycle.create({ name, brand, cc, country, categoryId });
         res.redirect('/motorcycles'); // Torna al llistat 
     }
     catch (error) { res.status(500).send('Error al crear la moto'); }
@@ -52,11 +53,12 @@ router.get('/:id/edit', async (req, res) => {
 
 router.post('/:id/update', async (req, res) => {
     try {
-        const { name, brand, cc, categoryId } = req.body;
+        const { name, brand, cc, country, categoryId } = req.body;
         const moto = await Motorcycle.findByPk(req.params.id);
         if (!moto) return res.status(404).send('Moto no trobada');
         moto.name = name;
         moto.brand = brand;
+        moto.country= country;
         moto.cc = cc;
         moto.categoryId = categoryId;
         await moto.save();
