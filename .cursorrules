@@ -31,7 +31,19 @@
 - EJS templates for server-rendered views
 - Static files served from public directory
 - Images stored in public/images
-- Basic Bootstrap styling likely to be used
+- Basic Bootstrap styling used for consistency
+- Custom CSS in public/css/styles.css
+- JavaScript for interactivity in public/js/main.js
+- Country flags displayed using country code PNG files
+- Responsive card layout for the landing page
+
+### Landing Page Structure
+- Uses Bootstrap grid system for responsive layout
+- Card-based display for motorcycles
+- Search and filter functionality via JavaScript
+- Category badges on each card
+- Country flags shown based on the country field
+- Placeholder SVG for missing images
 
 ## Project Preferences
 
@@ -58,10 +70,13 @@
 - Express as the web framework
 - EJS for templating
 - Node.js environment
+- Bootstrap for CSS framework
+- Vanilla JavaScript for client-side interactivity
 
 ## Known Issues and Workarounds
 - Database resets on app restart (intended for educational purposes)
 - Limited error handling (to be improved)
-- Basic UI (to be enhanced)
+- Basic UI (being enhanced incrementally)
+- Missing image upload functionality (using placeholders)
 
 This file will be updated as project patterns evolve and new insights are gained. 

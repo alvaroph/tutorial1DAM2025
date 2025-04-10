@@ -37,10 +37,18 @@ app.use('/categories', categoryRoutesEJS);
 
 // Configurar carpeta estática para servir las imágenes
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
+// Configurar carpeta estática para servir los archivos CSS y JS
+app.use('/static', express.static(path.join(__dirname, 'public')));
 
 // Ruta de prova
-app.get('/', (req, res) => {
-  res.render('index');
+app.get('/', async (req, res) => {
+  try {
+    const motorcycles = await Motorcycle.findAll({ include: Category });
+    res.render('index', { motorcycles });
+  } catch (error) {
+    console.error('Error fetching motorcycles:', error);
+    res.render('index', { motorcycles: [] });
+  }
 });
 
 const port = process.env.PORT || 3000;
@@ -54,6 +62,8 @@ const port = process.env.PORT || 3000;
     //Creem un parell de motos i un parell de caterories
     const catCarretera = await Category.create({ name: 'Carretera' });
     const catEnduro = await Category.create({ name: 'Enduro' });
+    const catCruiser = await Category.create({ name: 'Cruiser' });
+    const catSport = await Category.create({ name: 'Sport' });
 
    
     await Motorcycle.create({
@@ -61,7 +71,8 @@ const port = process.env.PORT || 3000;
       brand: 'Honda',
       country: 'japan',
       cc: 600,
-      categoryId: catCarretera.id,
+      img: 'cbr.jpg',
+      categoryId: catSport.id,
     });
 
     await Motorcycle.create({
@@ -69,6 +80,39 @@ const port = process.env.PORT || 3000;
       brand: 'Honda',
       country: 'japan',
       cc: 1000,
+      categoryId: catEnduro.id,
+    });
+    
+    await Motorcycle.create({
+      name: 'Ducati Panigale V4',
+      brand: 'Ducati',
+      country: 'italy',
+      cc: 1103,
+      categoryId: catSport.id,
+    });
+    
+    await Motorcycle.create({
+      name: 'Harley-Davidson Sportster',
+      brand: 'Harley-Davidson',
+      country: 'usa',
+      img: 'sportster.jpg',
+      cc: 1745,
+      categoryId: catCruiser.id,
+    });
+    
+    await Motorcycle.create({
+      name: 'Yamaha MT-09',
+      brand: 'Yamaha',
+      country: 'japan',
+      cc: 890,
+      categoryId: catCarretera.id,
+    });
+    
+    await Motorcycle.create({
+      name: 'Ducati Multistrada',
+      brand: 'Ducati',
+      country: 'italy',
+      cc: 1260,
       categoryId: catEnduro.id,
     });
 
